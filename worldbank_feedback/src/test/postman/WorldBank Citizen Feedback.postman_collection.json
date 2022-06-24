@@ -1,0 +1,1600 @@
+{
+	"info": {
+		"_postman_id": "4c83b24e-5095-44c6-be25-48a806a10bb1",
+		"name": "WorldBank Citizen Feedback",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "0 - Actuator",
+			"item": [
+				{
+					"name": "GET Feedback Actuator Health",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"access_token\", data.access_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\":\"ANTOINE\",\n\t\"password\":\"ANTOINE1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{cf_url}}/actuator/health",
+							"host": [
+								"{{cf_url}}"
+							],
+							"path": [
+								"actuator",
+								"health"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET Auth Actuator Health",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"access_token\", data.access_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\":\"ANTOINE\",\n\t\"password\":\"ANTOINE1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{cf_auth_url}}/actuator/health",
+							"host": [
+								"{{cf_auth_url}}"
+							],
+							"path": [
+								"actuator",
+								"health"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "1 - Auth",
+			"item": [
+				{
+					"name": "CF Access Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = JSON.parse(responseBody);",
+									"pm.environment.set(\"access_token\", data.access_token);",
+									"pm.environment.set(\"refresh_token\", data.refresh_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\":\"sadmin\",\n\t\"password\":\"Siren-123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{cf_auth_url}}/auth",
+							"host": [
+								"{{cf_auth_url}}"
+							],
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CF Refresh Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = JSON.parse(responseBody);",
+									"pm.environment.set(\"access_token\", data.access_token);",
+									"pm.environment.set(\"refresh_token\", data.refresh_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\":\"sadmin\",\n\t\"refreshToken\":\"{{refresh_token}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{cf_auth_url}}/auth/refresh",
+							"host": [
+								"{{cf_auth_url}}"
+							],
+							"path": [
+								"auth",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CF Logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{cf_auth_url}}/logout",
+							"host": [
+								"{{cf_auth_url}}"
+							],
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "2 - Feedback",
+			"item": [
+				{
+					"name": "Create  Feedback w/Optional Fields",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "categoryItemKey",
+									"value": "ST-LI",
+									"type": "text"
+								},
+								{
+									"key": "comment",
+									"value": "Testing Feedback",
+									"type": "text"
+								},
+								{
+									"key": "projectId",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "latitude",
+									"value": "33.893791",
+									"type": "text"
+								},
+								{
+									"key": "longitude",
+									"value": "35.501778",
+									"type": "text"
+								},
+								{
+									"key": "gender",
+									"value": "M",
+									"type": "text"
+								},
+								{
+									"key": "ageRange",
+									"value": "20-29",
+									"type": "text"
+								},
+								{
+									"key": "userType",
+									"value": "other",
+									"type": "text"
+								},
+								{
+									"key": "userTypeOther",
+									"value": "Software Engineer",
+									"type": "text"
+								},
+								{
+									"key": "fileList",
+									"type": "file",
+									"src": [
+										"/home/david/test-upload-files/eiffel-tower.jpg",
+										"/home/david/test-upload-files/big-ben.jpg"
+									]
+								},
+								{
+									"key": "firstName",
+									"value": "David",
+									"type": "text"
+								},
+								{
+									"key": "lastName",
+									"value": "Barrs",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "123 Main St. Anytown, USA",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "555-1212",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "somebody@example.com",
+									"type": "text"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{cf_url}}/feedback",
+							"host": [
+								"{{cf_url}}"
+							],
+							"path": [
+								"feedback"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Binary File",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{cf_url}}/file/1",
+							"host": [
+								"{{cf_url}}"
+							],
+							"path": [
+								"file",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Binary File w/IdKey",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{cf_url}}/file/key/1+abcd",
+							"host": [
+								"{{cf_url}}"
+							],
+							"path": [
+								"file",
+								"key",
+								"1+abcd"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create  Feedback - Karim - Kesrwan - Fatqa",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "categoryItemKey",
+									"value": "ET-LLW",
+									"type": "text"
+								},
+								{
+									"key": "comment",
+									"value": "Test from David",
+									"type": "text"
+								},
+								{
+									"key": "projectId",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "latitude",
+									"value": "33.893791",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "longitude",
+									"value": "35.501778",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "gender",
+									"value": "M",
+									"type": "text"
+								},
+								{
+									"key": "ageRange",
+									"value": "20-29",
+									"type": "text"
+								},
+								{
+									"key": "userType",
+									"value": "other",
+									"type": "text"
+								},
+								{
+									"key": "userTypeOther",
+									"value": "Software Engineer",
+									"type": "text"
+								},
+								{
+									"key": "fileList",
+									"type": "file",
+									"src": "/home/david/test-upload-files/2021-07-28 - Karim Test Files/Kesrwan - Fatqa.jpg"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{cf_url}}/feedback",
+							"host": [
+								"{{cf_url}}"
+							],
+							"path": [
+								"feedback"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create  Feedback - Karim - Zgharta - Ardat",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "categoryItemKey",
+									"value": "ET-LLW",
+									"type": "text"
+								},
+								{
+									"key": "comment",
+									"value": "Test from David",
+									"type": "text"
+								},
+								{
+									"key": "projectId",
+									"value": "27",
+									"type": "text"
+								},
+								{
+									"key": "latitude",
+									"value": "33.893791",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "longitude",
+									"value": "35.501778",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "gender",
+									"value": "M",
+									"type": "text"
+								},
+								{
+									"key": "ageRange",
+									"value": "20-29",
+									"type": "text"
+								},
+								{
+									"key": "userType",
+									"value": "other",
+									"type": "text"
+								},
+								{
+									"key": "userTypeOther",
+									"value": "Software Engineer",
+									"type": "text"
+								},
+								{
+									"key": "fileList",
+									"type": "file",
+									"src": "/home/david/test-upload-files/2021-07-28 - Karim Test Files/Zgharta - Ardat.jpg"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{cf_url}}/feedback",
+							"host": [
+								"{{cf_url}}"
+							],
+							"path": [
+								"feedback"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create  Feedback - Marcel - Keserwane",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "categoryItemKey",
+									"value": "ET-LLW",
+									"type": "text"
+								},
+								{
+									"key": "comment",
+									"value": "Test from David",
+									"type": "text"
+								},
+								{
+									"key": "projectId",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "latitude",
+									"value": "33.893791",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "longitude",
+									"value": "35.501778",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "gender",
+									"value": "M",
+									"type": "text"
+								},
+								{
+									"key": "ageRange",
+									"value": "20-29",
+									"type": "text"
+								},
+								{
+									"key": "userType",
+									"value": "other",
+									"type": "text"
+								},
+								{
+									"key": "userTypeOther",
+									"value": "Software Engineer",
+									"type": "text"
+								},
+								{
+									"key": "fileList",
+									"type": "file",
+									"src": "/home/david/test-upload-files/2021-08-06 Marcel Test File/Keserwan.jpg"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{cf_url}}/feedback",
+							"host": [
+								"{{cf_url}}"
+							],
+							"path": [
+								"feedback"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create  Feedback - Feedback Lat-Long - No Image Geotag",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "categoryItemKey",
+									"value": "ET-LLW",
+									"type": "text"
+								},
+								{
+									"key": "comment",
+									"value": "Test from David",
+									"type": "text"
+								},
+								{
+									"key": "projectId",
+									"value": "42",
+									"type": "text"
+								},
+								{
+									"key": "latitude",
+									"value": "33.606939",
+									"type": "text"
+								},
+								{
+									"key": "longitude",
+									"value": "35.461939",
+									"type": "text"
+								},
+								{
+									"key": "gender",
+									"value": "M",
+									"type": "text"
+								},
+								{
+									"key": "ageRange",
+									"value": "20-29",
+									"type": "text"
+								},
+								{
+									"key": "userType",
+									"value": "other",
+									"type": "text"
+								},
+								{
+									"key": "userTypeOther",
+									"value": "Software Engineer",
+									"type": "text"
+								},
+								{
+									"key": "fileList",
+									"type": "file",
+									"src": "/home/david/test-upload-files/Big_Buck_Bunny_360_10s_1MB.mp4"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{cf_url}}/feedback",
+							"host": [
+								"{{cf_url}}"
+							],
+							"path": [
+								"feedback"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create  Feedback - 2021-08-23 - Rita Failed",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "categoryItemKey",
+									"value": "ET-LLW",
+									"type": "text"
+								},
+								{
+									"key": "comment",
+									"value": "2021-08-23 - Rita Failed",
+									"type": "text"
+								},
+								{
+									"key": "projectId",
+									"value": "8",
+									"type": "text"
+								},
+								{
+									"key": "latitude",
+									"value": "33.893791",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "longitude",
+									"value": "35.501778",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "gender",
+									"value": "M",
+									"type": "text"
+								},
+								{
+									"key": "ageRange",
+									"value": "20-29",
+									"type": "text"
+								},
+								{
+									"key": "userType",
+									"value": "other",
+									"type": "text"
+								},
+								{
+									"key": "userTypeOther",
+									"value": "Software Engineer",
+									"type": "text"
+								},
+								{
+									"key": "fileList",
+									"type": "file",
+									"src": "/home/david/2021-08-23 Rita Failed/IMG QR code.JPG"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{cf_url}}/feedback",
+							"host": [
+								"{{cf_url}}"
+							],
+							"path": [
+								"feedback"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create  Feedback w/Compressed Image",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "categoryItemKey",
+									"value": "ST-LI",
+									"type": "text"
+								},
+								{
+									"key": "comment",
+									"value": "David Test Compressed file on 2021-10-21",
+									"type": "text"
+								},
+								{
+									"key": "projectId",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "latitude",
+									"value": "33.893791",
+									"type": "text"
+								},
+								{
+									"key": "longitude",
+									"value": "35.501778",
+									"type": "text"
+								},
+								{
+									"key": "gender",
+									"value": "M",
+									"type": "text"
+								},
+								{
+									"key": "ageRange",
+									"value": "20-29",
+									"type": "text"
+								},
+								{
+									"key": "userType",
+									"value": "other",
+									"type": "text"
+								},
+								{
+									"key": "userTypeOther",
+									"value": "Software Engineer",
+									"type": "text"
+								},
+								{
+									"key": "fileList",
+									"type": "file",
+									"src": [
+										"/home/david/test-upload-files/big-ben.jpg",
+										"/home/david/test-upload-files/empire.jpg"
+									]
+								},
+								{
+									"key": "firstName",
+									"value": "David",
+									"type": "text"
+								},
+								{
+									"key": "lastName",
+									"value": "Barrs",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "123 Main St. Anytown, USA",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "555-1212",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "somebody@example.com",
+									"type": "text"
+								},
+								{
+									"key": "imageLatLongData",
+									"value": "big-ben.jpg+N+51+30+37.2852+W+0+7+0.3828",
+									"type": "text"
+								},
+								{
+									"key": "imageLatLongData",
+									"value": "empire.jpg+N+40+44+55.7412+W+73+59+7.5408",
+									"type": "text"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{cf_url}}/feedback",
+							"host": [
+								"{{cf_url}}"
+							],
+							"path": [
+								"feedback"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "2.5 - Feedback Secure",
+			"item": [
+				{
+					"name": "Get Paged Feedback (page, size)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{cf_url}}/secure/feedback?page=0&size=25",
+							"host": [
+								"{{cf_url}}"
+							],
+							"path": [
+								"secure",
+								"feedback"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "25"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Feedback",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{cf_url}}/secure/feedback/3",
+							"host": [
+								"{{cf_url}}"
+							],
+							"path": [
+								"secure",
+								"feedback",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Binary File",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{cf_url}}/file/1",
+							"host": [
+								"{{cf_url}}"
+							],
+							"path": [
+								"file",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "3 - Lookups",
+			"item": [
+				{
+					"name": "Get Category Types",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{cf_url}}/lookup/types",
+							"host": [
+								"{{cf_url}}"
+							],
+							"path": [
+								"lookup",
+								"types"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Category Items",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{cf_url}}/lookup/items",
+							"host": [
+								"{{cf_url}}"
+							],
+							"path": [
+								"lookup",
+								"items"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get FILTERED Category Items",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{cf_url}}/lookup/items/ET,PHS",
+							"host": [
+								"{{cf_url}}"
+							],
+							"path": [
+								"lookup",
+								"items",
+								"ET,PHS"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Kadaa List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{cf_url}}/lookup/kadaa",
+							"host": [
+								"{{cf_url}}"
+							],
+							"path": [
+								"lookup",
+								"kadaa"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "4 - Project",
+			"item": [
+				{
+					"name": "Get Paged Project (page, size)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{cf_url}}/project?page=0&size=25",
+							"host": [
+								"{{cf_url}}"
+							],
+							"path": [
+								"project"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "25"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get FILTERED Paged Project (page, size)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{cf_url}}/project/kadaa/beir?page=0&size=25",
+							"host": [
+								"{{cf_url}}"
+							],
+							"path": [
+								"project",
+								"kadaa",
+								"beir"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "25"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Projects By Partial Word",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{cf_url}}/project/find/raat",
+							"host": [
+								"{{cf_url}}"
+							],
+							"path": [
+								"project",
+								"find",
+								"raat"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Projects By Partial Word - Arabic",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{cf_url}}/project/find/اسما?locale=arlb",
+							"host": [
+								"{{cf_url}}"
+							],
+							"path": [
+								"project",
+								"find",
+								"اسما"
+							],
+							"query": [
+								{
+									"key": "locale",
+									"value": "arlb"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST Project",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"latitude\": \"33.893791\",\n  \"longitude\": \"35.501778\",\n  \"name\": \"Project 2 - Barrs Test\",\n  \"description\": \"This is David's Test\"\n}\n"
+						},
+						"url": {
+							"raw": "{{cf_url}}/project",
+							"host": [
+								"{{cf_url}}"
+							],
+							"path": [
+								"project"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Project",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{cf_url}}/project/2",
+							"host": [
+								"{{cf_url}}"
+							],
+							"path": [
+								"project",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Project",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"latitude\": \"33.893791\",\n  \"longitude\": \"35.501778\",\n  \"name\": \"Project 2 - Barrs Test\",\n  \"description\": \"This is David's Test - updated\"\n}"
+						},
+						"url": {
+							"raw": "{{cf_url}}/project/2",
+							"host": [
+								"{{cf_url}}"
+							],
+							"path": [
+								"project",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Closest Projects",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{cf_url}}/project/closest?latitude=33.870718&longitude=35.510823",
+							"host": [
+								"{{cf_url}}"
+							],
+							"path": [
+								"project",
+								"closest"
+							],
+							"query": [
+								{
+									"key": "latitude",
+									"value": "33.870718"
+								},
+								{
+									"key": "longitude",
+									"value": "35.510823"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Closest Projects (Karim)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{cf_url}}/project/closest?latitude=33.8587996&longitude=35.5812851",
+							"host": [
+								"{{cf_url}}"
+							],
+							"path": [
+								"project",
+								"closest"
+							],
+							"query": [
+								{
+									"key": "latitude",
+									"value": "33.8587996"
+								},
+								{
+									"key": "longitude",
+									"value": "35.5812851"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "5 - Util",
+			"item": [
+				{
+					"name": "Manually Fire processEmails()",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{cf_url}}/util/process",
+							"host": [
+								"{{cf_url}}"
+							],
+							"path": [
+								"util",
+								"process"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Test Email2",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{cf_url}}/util/email/davidbarrs@yahoo.com",
+							"host": [
+								"{{cf_url}}"
+							],
+							"path": [
+								"util",
+								"email",
+								"davidbarrs@yahoo.com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Access Keys",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{cf_url}}/util/keys",
+							"host": [
+								"{{cf_url}}"
+							],
+							"path": [
+								"util",
+								"keys"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

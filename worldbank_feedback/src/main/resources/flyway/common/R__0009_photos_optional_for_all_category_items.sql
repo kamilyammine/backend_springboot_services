@@ -1,0 +1,1 @@
+update category_item set photo_required = false;
