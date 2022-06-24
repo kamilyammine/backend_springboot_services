@@ -1,0 +1,32 @@
+# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+
+name: Test CICD
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        ref: head/master
+
+    - name: Build worldbank common
+      run: |
+        cd worldbank_common
+        mvn clean install
+
+    - name: Build worldbank auth
+      run: |
+        cd worldbank_common
+        mvn clean package -B
+    - name: Build worldbank feedback
+      run: |
+        cd worldbank_feedback
+        mvn clean package -B
