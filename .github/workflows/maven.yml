@@ -16,7 +16,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       with:
-        ref: head/master
+        ref: refs/head/master
 
     - name: Build worldbank common
       run: |
