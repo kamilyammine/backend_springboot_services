@@ -14,9 +14,9 @@ jobs:
     runs-on: kamil_runner
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
-        ref: refs/head/master
+        ref: master
 
     - name: Build worldbank common
       run: |
