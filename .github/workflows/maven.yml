@@ -22,7 +22,6 @@ jobs:
       run: |
         cd worldbank_common
         mvn clean install
-        mkdir zipfiles && cp target/*.jar zipfiles
 
     - name: Build worldbank auth
       run: |
