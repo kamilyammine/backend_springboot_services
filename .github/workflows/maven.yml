@@ -22,6 +22,8 @@ jobs:
       run: |
         cd worldbank_common
         mvn clean install
+        mkdir /home/kamil/actions-runner/_work/backend_springboot_services/backend_springboot_services/warfiles
+        cp /home/kamil/actions-runner/_work/backend_springboot_services/backend_springboot_services/worldbank_common/target/worldbank_common-0.0.1-SNAPSHOT.jar /home/kamil/actions-runner/_work/backend_springboot_services/backend_springboot_services/warfiles
 
     - name: Build worldbank auth
       run: |
@@ -31,3 +33,5 @@ jobs:
       run: |
         cd worldbank_feedback
         mvn clean package -B
+        cp /home/kamil/actions-runner/_work/backend_springboot_services/backend_springboot_services/worldbank_feedback/target/worldbank_feedback-0.0.1-SNAPSHOT.jar /home/kamil/actions-runner/_work/backend_springboot_services/backend_springboot_services/warfiles
+
