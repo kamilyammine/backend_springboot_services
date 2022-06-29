@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/backend_springboot_services.iml" filepath="$PROJECT_DIR$/.idea/backend_springboot_services.iml" />
+      <module fileurl="file://$PROJECT_DIR$/worldbank_auth/worldbank_auth.iml" filepath="$PROJECT_DIR$/worldbank_auth/worldbank_auth.iml" />
+      <module fileurl="file://$PROJECT_DIR$/worldbank_common/worldbank_common.iml" filepath="$PROJECT_DIR$/worldbank_common/worldbank_common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/worldbank_feedback/worldbank_feedback.iml" filepath="$PROJECT_DIR$/worldbank_feedback/worldbank_feedback.iml" />
+    </modules>
+  </component>
+</project>
