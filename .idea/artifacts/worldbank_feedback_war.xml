@@ -1,0 +1,16 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="worldbank_feedback:war">
+    <output-path>$PROJECT_DIR$/worldbank_feedback/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <exploded>false</exploded>
+        <module>worldbank_feedback</module>
+        <packaging>war</packaging>
+        <unpackNestedArchives>false</unpackNestedArchives>
+      </options>
+    </properties>
+    <root id="archive" name="worldbank_feedback-0.0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="worldbank_feedback:war exploded" />
+    </root>
+  </artifact>
+</component>
